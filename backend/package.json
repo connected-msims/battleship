@@ -2,6 +2,10 @@
   "name": "battleship-backend",
   "version": "0.0.1",
   "dependencies": {
-    "express": "^4.15.2"
+    "express": "^4.15.2",
+    "socket.io": "^2.0.4"
+  },
+  "scripts": {
+    "start": "nodemon ./index.js"
   }
 }
