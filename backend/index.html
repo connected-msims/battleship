@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
 <head>
-    <title>Socket.IO chat</title>
+    <title>Battleship Backend</title>
     <style>
         * {
             margin: 0;
@@ -9,8 +9,13 @@
             box-sizing: border-box;
         }
 
-        body {
+        html, body {
             font: 13px Helvetica, Arial;
+            display: flex;
+            height: 100vh;
+            width: 100vh;
+            flex-direction: column;
+            justify-content: space-between;
         }
 
         form {
@@ -19,6 +24,7 @@
             position: fixed;
             bottom: 0;
             width: 100%;
+            height: 35px;
         }
 
         form input {
@@ -33,6 +39,15 @@
             background: rgb(130, 224, 255);
             border: none;
             padding: 10px;
+        }
+
+        .api-ui {
+            position: fixed;
+            bottom: 35px;
+        }
+
+        #action {
+            width: 100px;
         }
 
         #messages {
@@ -55,8 +70,10 @@
       $(() => {
         const socket = io();
         $('form').submit(function(){
-          socket.emit('chat message', $('#m').val());
-          $('#m').val('');
+          const actionSelector = document.getElementById("action");
+          const action = actionSelector.options[actionSelector.selectedIndex].value;
+          console.log(action);
+          socket.emit(action, $('#m').val());
           return false;
         });
         socket.on('chat message', (msg) => {
@@ -67,9 +84,16 @@
 </head>
 <body>
 <ul id="messages"></ul>
-<form action="">
-    <input id="m" autocomplete="off" title="m"/>
-    <button>Send</button>
-</form>
+<div class="api-ui">
+    <select id="action">
+        <option value="chat message">Message</option>
+        <option value="create">Create Game</option>
+        <option value="delete">Delete Game</option>
+    </select>
+    <form action="">
+        <input id="m" autocomplete="off" title="m"/>
+        <button>Send</button>
+    </form>
+</div>
 </body>
 </html>
