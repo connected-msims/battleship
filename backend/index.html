@@ -69,6 +69,9 @@
     <script>
       $(() => {
         const socket = io();
+        socket.on('started game', (gameId) => {
+          $('#messages').append($('<li>').text(`started game (${gameId})`));
+        });
         $('form').submit(function(){
           const actionSelector = document.getElementById("action");
           const action = actionSelector.options[actionSelector.selectedIndex].value;

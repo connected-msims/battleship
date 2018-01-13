@@ -26,8 +26,11 @@ io.on('connection', (socket) => {
   });
 
   socket.on('join game', (gameId, userId) => {
-    lobby.addPlayerToGame(gameId, userId);
+    const joinedGame = lobby.addPlayerToGame(gameId, userId);
     socket.emit('join game', { gameId, userId})
+    if (joinedGame && joinedGame.lobbyType === 0) {
+      socket.emit('started game', { gameId });
+    }
   });
 
   socket.on('delete game', (gameId) => {
