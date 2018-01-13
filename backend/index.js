@@ -14,6 +14,7 @@ io.on('connection', (socket) => {
   socket.on('chat message', (msg) => {
     io.emit('chat message', msg);
   });
+  
   socket.on('create game', () => {
     const gameId = lobby.createGame();
     console.log('created a game with the id ' + gameId);
@@ -29,3 +30,5 @@ io.on('connection', (socket) => {
 http.listen(3000, function () {
   console.log('listening on *:3000');
 });
+
+
