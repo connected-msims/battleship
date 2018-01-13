@@ -20,10 +20,20 @@ class Lobby {
 
   addPlayerToGame(gameId, userId) {
     try {
-      this._gameArray[this.findGameIndexById(gameId)].players.push(userId);
+      const selectedGame = this._gameArray[this.findGameIndexById(gameId)];
+      selectedGame.players.push(userId);
+      if (selectedGame.players.length === 2) {
+        selectedGame.lobbyType = 0;
+        this.startTheGame(selectedGame);
+      }
+      return selectedGame;
     } catch(err) {
       console.error(`Invalid gameId  of \"${gameId}\": Couldn\'t find game`);
     }
+  }
+
+  startTheGame(game) {
+    const newGame = new Game(...game);
   }
 
   deleteGame(gameId) {
