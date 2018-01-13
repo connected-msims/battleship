@@ -79,12 +79,6 @@
         socket.on('chat message', (msg) => {
           $('#messages').append($('<li>').text(msg));
         });
-        socket.on('create', (gameInfo) => {
-          $('#messages').append($('<li>').text('Created a game with a game of id of ' + gameInfo.gameId));
-        });
-        socket.on('delete', (gameInfo) => {
-          $('#messages').append($('<li>').text('Deleted a game with a game of id of ' + gameInfo.gameId));
-        });
       });
     </script>
 </head>
@@ -94,6 +88,7 @@
     <select id="action">
         <option value="chat message">Message</option>
         <option value="create game">Create Game</option>
+        <option value="join game">Join Game</option>
         <option value="delete game">Delete Game</option>
     </select>
     <form action="">
